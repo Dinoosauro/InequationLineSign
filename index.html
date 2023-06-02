@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Inequation Line</title>
+    </script>
+    <style>
+        .line {
+            border-bottom: 2px solid rgb(221, 221, 221);
+            position: absolute;
+        }
+
+        .circle {
+            border-radius: 50%;
+            background: rgb(221, 221, 221);
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            z-index: 2;
+            margin-right: 0;
+            margin-left: auto
+        }
+
+        .smalline {
+            border-right: 4px;
+            background: rgb(180, 180, 180);
+            z-index: 10;
+        }
+
+        .dashed {
+            background: repeating-linear-gradient(90deg, rgb(221, 221, 221) 0 10px, rgb(25, 25, 25) 0 12px) center;
+            position: absolute;
+        }
+
+        .createFlex {
+            display: flex;
+            justify-content: flex-end;
+            position: absolute;
+        }
+
+        .lineContainers {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .maxWidth {
+            width: 90vw;
+        }
+
+        .beforeAfterWidth {
+            width: 14.5vw;
+            z-index: 5;
+        }
+
+        .contentInside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: large;
+            height: 45px;
+            float: left;
+        }
+
+        .contentInside:hover {
+            border-style: dashed;
+            border-width: 2px;
+            border-color: white;
+            border-radius: 5px;
+            height: 40px;
+        }
+
+        .centerWidth {
+            width: 60vw;
+            z-index: 5;
+        }
+
+        .simpleCenter {
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        body {
+            color: white;
+            background-color: rgb(25, 25, 25);
+            font-family: "Work Sans";
+        }
+
+        input {
+            width: 45px;
+            background-color: rgb(50, 50, 50);
+            color: rgb(221, 221, 221);
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        button {
+            margin-right: 10px;
+            height: 35px;
+            background-color: rgb(50, 50, 50);
+            border-radius: 5px;
+            color: rgb(221, 221, 221);
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .accentBtn {
+            background-color: rgb(196,92,36);
+        }
+        dialog {
+            z-index: 999;
+            color: rgb(221, 221, 221);
+            background-color:rgb(50, 50, 50)
+        }
+    </style>
+</head>
+
+<body>
+    <div style="position: absolute; width: 100vw; height: 100vh; display: flex;justify-content: center;align-items: center; display: none" id="dialogDiv">
+            
+        <dialog id="dialog" open>
+            <form method="dialog">
+            <h2>Convert to Image:</h2><br><br>
+            <l>Choose the output format:</l>
+            <select id="select">
+                <option data-format="image/jpeg" data-extension="jpg">JPEG</option>
+                <option data-format="image/png" data-extension="png" id="png">PNG</option>
+                <option data-format="image/webp" data-extension="webp">WebP</option>
+            </select><br>
+            <div id="hidePng">
+            <l>Select quality:</l> <input type="range" min="0" max="1" value="0.9" step="0.05" style="width: 80px" id="slider">
+            <br>
+        </div>
+            <br>
+                <input type="checkbox" id="check" style="margin-left: 0px;"><l>Copy into clipboard instead of downloading</l><br><br>
+                <button id="export">Continue</button>
+                <button style="float: right" id="close">Close</button>
+            </form>
+        </dialog>    
+</div>
+    <div>
+        <div class="simpleCenter">
+            <h1>Inequation Line</h1>
+            <i>Create the line to an inequation</i><br><br>
+            <l>Write the first point here:</l><input id="firstItem" type="number" value="0" oninput="changeGraph()"><br>
+            <l>Write the second point here:</l><input id="secondItem" type="number" value="0"
+                oninput="changeGraph()"><br>
+        </div>
+    </div>
+    <div id="snapshot" style="background-color: rgb(25, 25, 25)">
+        <div><br><br>
+            <div class="simpleCenter maxWidth">
+                <l id="numberCenter">0</l>
+            </div>
+            <div style="position: relative;">
+                <div class="line maxWidth" style=" height: 7.5px; position: absolute; z-index: 1;"></div>
+                <div class="lineContainers maxWidth">
+                    <div class="smalline" style="width: 2px; height: 40px; position: absolute; z-index: 2;"></div>
+                </div>
+                <div style="width: 75vw;" class="createFlex" id="intelligentWidth1">
+                    <div class="circle"></div>
+                    <l id="change1" style="margin-top: 25px">1</l>
+                </div>
+                <div></div>
+            </div>
+        </div>
+        <br><br>
+        <div style="height: 45px;" class="maxWidth">
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="left-1"></div>
+            <div class="centerWidth contentInside" data-change="0" data-position="center-1"></div>
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="right-1"></div>
+        </div>
+        <div style="height: 2px;" class="dashed maxWidth"></div>
+        <div style="height: 45px; margin-top: 5px" class="maxWidth">
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="left-2"></div>
+            <div class="centerWidth contentInside" data-change="0" data-position="center-2"></div>
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="right-2"></div>
+        </div>
+        <div>
+            <div class="line maxWidth" style="height: 7.5px; position: absolute; z-index: 1;"></div>
+            <div class="lineContainers maxWidth">
+                <div class="smalline" style="width: 2px; height: 40px; position: absolute; z-index: 2;"></div>
+            </div>
+            <div style="width: 15vw;" class="createFlex" id="intelligentWidth2">
+                <div class="circle"></div>
+                <l id="change2" style="margin-top: 25px">-1</l>
+            </div>
+            <div></div>
+        </div>
+        <div style="height: 45px; margin-top: 45px" class="maxWidth">
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="left-3"></div>
+            <div class="centerWidth contentInside" data-change="0" data-position="center-3"></div>
+            <div class="beforeAfterWidth contentInside" data-change="0" data-position="right-3"></div>
+        </div>
+    </div>
+    <div class="simpleCenter">
+        <button id="dialogBtn" class="accentBtn">Convert to Image</button><button id="githubBtn">View on GitHub</button>
+    </div>
+    <canvas id="dynamicCanvas"></canvas>
+    <script>
+        function forceDownload(url, fileName) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.responseType = "blob";
+    xhr.onload = function () {
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL(this.response);
+        var tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.download = fileName;
+        document.body.appendChild(tag);
+        tag.click();
+        document.body.removeChild(tag);
+    }
+    xhr.send();
+}
+        function changeGraph() {
+            document.getElementById("numberCenter").innerHTML = (parseInt(document.getElementById("firstItem").value) + parseInt(document.getElementById("secondItem").value)) / 2;
+            document.getElementById("change1").innerHTML = document.getElementById("firstItem").value;
+            document.getElementById("change2").innerHTML = document.getElementById("secondItem").value;
+        }
+        let colorOptions = [{
+            color: "rgb(25,25,25)",
+            sign: ""
+        },
+        {
+            color: "rgb(48,61,78)",
+            sign: "+"
+        },
+        {
+            color: "rgb(177,68,52)",
+            sign: "-"
+        }]
+        let isHover = e => e.parentElement.querySelector(':hover') === e;
+        let changeDiv = document.querySelectorAll("[data-change]");
+        for (let i = 0; i < changeDiv.length; i++) {
+            changeDiv[i].onclick = function () {
+                let getNext = parseInt(changeDiv[i].getAttribute("data-change")) + 1;
+                if (getNext == 3) getNext = 0;
+                function setItem(item) {
+                item.style.background = colorOptions[getNext].color;
+                item.innerHTML = colorOptions[getNext].sign;
+                item.setAttribute("data-change", getNext);
+                }
+                setItem(changeDiv[i]);
+                let attribute = changeDiv[i].getAttribute("data-position");
+                if (attribute.substring(attribute.indexOf("-") + 1) !== "3") {
+                let otherDiv = "1";
+                if (attribute.substring(attribute.indexOf("-") + 1) == "1") otherDiv = "2";
+                console.log(`${attribute.substring(0, attribute.indexOf("-"))}-${otherDiv}`);
+                if (changeDiv[i].innerHTML === "+" && document.querySelector(`[data-position=${attribute.substring(0, attribute.indexOf("-"))}-${otherDiv}]`).innerHTML === "-") getNext = 2; else if (changeDiv[i].innerHTML === "-" && document.querySelector(`[data-position=${attribute.substring(0, attribute.indexOf("-"))}-${otherDiv}]`).innerHTML === "+") getNext = 2; else getNext = 1;
+                setItem(document.querySelector(`[data-position=${attribute.substring(0, attribute.indexOf("-"))}-3]`));
+                }
+            }
+        }
+        document.getElementById("export").onclick = function() {
+            html2canvas(document.getElementById("snapshot")).then(function(canvas) {
+                let select = document.getElementById("select");
+                let getDataUrl = [select.options[select.selectedIndex].getAttribute("data-format")];
+                if (select.options[select.selectedIndex].getAttribute("data-format") !== "image/png") getDataUrl.push(document.getElementById("slider").value);
+                if (!document.getElementById("check").checked) {
+                    forceDownload(canvas.toDataURL(...getDataUrl), `Inequation.${select.options[select.selectedIndex].getAttribute("data-extension")}`);
+                } else {
+                    canvas.toBlob((blob) => {
+                        navigator.clipboard.write([new ClipboardItem({ ["image/png"]: blob })]);
+                    }, "image/png")
+                }
+});
+        document.getElementById("dialogDiv").style.display = "none";
+        }
+        document.getElementById("close").onclick = function() {
+            document.getElementById("dialogDiv").style.display = "none";
+        }
+        document.getElementById("dialogBtn").onclick = function() {
+            document.getElementById("dialogDiv").style.display = "inline";
+            document.getElementById("dialog").open = true;
+        }
+        document.getElementById("select").onchange = function() {
+            if (document.getElementById("select").options[document.getElementById("select").selectedIndex].getAttribute("data-format") === "image/png") document.getElementById("hidePng").style.display = "none"; else document.getElementById("hidePng").style.display = "inline";
+        }
+        document.getElementById("check").onchange = function() {
+            if (document.getElementById("check").checked) {
+                document.getElementById("png").selected = true;
+                document.getElementById("select").disabled = true;
+            } else {
+                document.getElementById("select").disabled = false;
+            }
+        }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha256-6H5VB5QyLldKH9oMFUmjxw2uWpPZETQXpCkBaDjquMs=" crossorigin="anonymous"></script>
+</body>
