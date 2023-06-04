@@ -2,7 +2,9 @@
 
 <head>
     <title>Inequation Line</title>
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
     <style>
         .line {
             border-bottom: 2px solid rgb(221, 221, 221);
@@ -83,7 +85,7 @@
         body {
             color: white;
             background-color: rgb(25, 25, 25);
-            font-family: "Work Sans";
+            font-family: "Work Sans", sans-serif;
         }
 
         input {
@@ -140,12 +142,12 @@
         <div class="simpleCenter">
             <h1>Inequation Line</h1>
             <i>Create the line to an inequation</i><br><br>
-            <l>Write the first point here:</l><input id="firstItem" type="number" value="0" oninput="changeGraph()"><br>
-            <l>Write the second point here:</l><input id="secondItem" type="number" value="0"
+            <l>Write the first point here:</l><input id="firstItem" type="number" value="1" oninput="changeGraph()"><br>
+            <l>Write the second point here:</l><input id="secondItem" type="number" value="-1"
                 oninput="changeGraph()"><br>
         </div>
     </div>
-    <div id="snapshot" style="background-color: rgb(25, 25, 25)">
+    <div id="snapshot" style="background-color: rgb(25, 25, 25);">
         <div><br><br>
             <div class="simpleCenter maxWidth">
                 <l id="numberCenter">0</l>
@@ -213,6 +215,13 @@
     xhr.send();
 }
         function changeGraph() {
+            if (parseInt(document.getElementById("firstItem").value) < parseInt(document.getElementById("secondItem").value)) {
+                document.getElementById("intelligentWidth1").style.width = "25vw";
+                document.getElementById("intelligentWidth2").style.width = "75vw";
+            } else {
+                document.getElementById("intelligentWidth1").style.width = "75vw";
+                document.getElementById("intelligentWidth2").style.width = "25vw";
+            }
             document.getElementById("numberCenter").innerHTML = (parseInt(document.getElementById("firstItem").value) + parseInt(document.getElementById("secondItem").value)) / 2;
             document.getElementById("change1").innerHTML = document.getElementById("firstItem").value;
             document.getElementById("change2").innerHTML = document.getElementById("secondItem").value;
